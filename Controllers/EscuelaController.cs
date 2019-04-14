@@ -13,6 +13,8 @@ namespace net.practices.aspnetcore.Controllers
             escuela.EscuelaId=Guid.NewGuid().ToString();
             escuela.Nombre="IDA Schoool";
             
+ViewBag.CosaDinamica="Cosa dinamica";
+
             return View(escuela);
         }
     }
