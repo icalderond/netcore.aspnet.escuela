@@ -1,15 +1,15 @@
-﻿@model List<Asignatura>
+﻿@model List<Alumno>
 
 @{
-    ViewData["Title"] = "Información Asignatura";
+    ViewData["Title"] = "Información Alumno";
     Layout="Simple"; //<<== Using a different Layout created
 }
 <h1>@ViewData["Title"]</h1>
 
 <strong>Desde la vista parcial</strong>
-@foreach (var asignatura in @Model)
+@foreach (var alumno in @Model)
 {
-    <partial name="ObjetoEscuelaSimple" model="asignatura"/>
+    <partial name="ObjetoEscuelaSimple" model="alumno"/>
 }
 
 <p><i>@ViewBag.Fecha</i></p>
