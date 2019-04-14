@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace net.practices.aspnetcore.Models
 {
-
     public class AlumnoPromedio
     {
         public float promedio;
