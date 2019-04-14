@@ -22,6 +22,7 @@ namespace net.practices.aspnetcore
 
             using (var scope = host.Services.CreateScope())
             {
+                // Changes to force charge data on db
                 var services = scope.ServiceProvider;
                 try
                 {

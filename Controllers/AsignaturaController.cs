@@ -16,18 +16,12 @@ namespace net.practices.aspnetcore.Controllers
         }
         public IActionResult Index()
         {
-            var asignaturaFromDb = _context.Asignaturas.FirstOrDefault(); ;
-
-            ViewBag.Fecha = DateTime.UtcNow;
-
-            return View(asignaturaFromDb);
+            return View(_context.Asignaturas.FirstOrDefault());
         }
 
         public IActionResult MultiAsignatura()
         {
-            var asignaturasFromDb = _context.Asignaturas.ToList();
-
-            return View(asignaturasFromDb);
+            return View(_context.Asignaturas.ToList());
         }
     }
 }

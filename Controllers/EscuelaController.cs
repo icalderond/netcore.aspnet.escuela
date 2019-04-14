@@ -14,8 +14,7 @@ namespace net.practices.aspnetcore.Controllers
         }
         public IActionResult Index()
         {
-            var escuelaFromDb=_context.Escuelas.FirstOrDefault();
-            return View(escuelaFromDb);
+            return View(_context.Escuelas.FirstOrDefault());
         }
     }
 }

@@ -17,17 +17,12 @@ namespace net.practices.aspnetcore.Controllers
 
         public IActionResult Index()
         {
-            var alumnoFromDb = _context.Alumnos.FirstOrDefault();
-            ViewBag.Fecha = DateTime.UtcNow;
-
-            return View(alumnoFromDb);
+            return View(_context.Alumnos.FirstOrDefault());
         }
 
         public IActionResult MultiAlumno()
         {
-            var alumnosFromDb = _context.Alumnos.ToList();
-
-            return View(alumnosFromDb);
+            return View(_context.Alumnos.ToList());
         }
     }
 }
