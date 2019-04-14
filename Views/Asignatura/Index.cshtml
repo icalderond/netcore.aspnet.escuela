@@ -5,6 +5,21 @@
     Layout="Simple"; //<<== Using a different Layout created
 }
 <h1>@ViewData["Title"]</h1>
+
+<strong>Desde la vista normal</strong>
+<p>
+    Nombre: @Model.Nombre <br>
+    Id: @Model.UniqueId
+</p>
+
+<strong>Desde la vista parcial</strong>
+<partial name="AsignaturaSimple"
+
+@{  //This part help send object to template on partial tag
+    //model="@Model.Nombre"  
+}
+/>
+
 <h2>Asignatura: @Model.Nombre</h2>
 
 <p><i>@ViewBag.Fecha</i></p>
