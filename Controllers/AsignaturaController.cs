@@ -14,10 +14,6 @@ namespace net.practices.aspnetcore.Controllers
         {
             _context = context;
         }
-        // public IActionResult Index()
-        // {
-        //     return View(_context.Asignaturas.FirstOrDefault());
-        // }
 
         [Route("Asignatura/Index")]
         [Route("Asignatura/Index/{asignaturaId}")]
@@ -28,14 +24,37 @@ namespace net.practices.aspnetcore.Controllers
                 var asignatura = _context.Asignaturas
                 .Where(x => x.Id == asignaturaId).SingleOrDefault();
                 return View(asignatura);
-            }else{
-                return View("MultiAsignatura",_context.Asignaturas.ToList());
+            }
+            else
+            {
+                return View("MultiAsignatura", _context.Asignaturas.ToList());
             }
         }
 
         public IActionResult MultiAsignatura()
         {
             return View(_context.Asignaturas.ToList());
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Asignatura asignatura)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Asignaturas.Add(asignatura);
+                _context.SaveChanges();
+
+                return View("Index", asignatura);
+            }
+            else
+            {
+                return View(asignatura);
+            }
         }
     }
 }
