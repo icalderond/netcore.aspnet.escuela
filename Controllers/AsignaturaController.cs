@@ -56,5 +56,34 @@ namespace net.practices.aspnetcore.Controllers
                 return View(asignatura);
             }
         }
+
+        public IActionResult Edit(string id)
+        {
+            var asignaturaResult = from asignatura in _context.Asignaturas
+                              where asignatura.Id == id
+                              select asignatura;
+            return View(asignaturaResult.SingleOrDefault());
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Asignatura asignatura)
+        {
+            if (ModelState.IsValid)
+            {
+                var asignaturaToEdit = _context.Asignaturas
+                .FirstOrDefault(x => x.Id == asignatura.Id);
+
+                asignaturaToEdit.Nombre = asignatura.Nombre;
+
+                _context.Asignaturas.Update(asignaturaToEdit);
+                _context.SaveChanges();
+
+                return View("Index", asignatura);
+            }
+            else
+            {
+                return View(asignatura);
+            }
+        }
     }
 }
