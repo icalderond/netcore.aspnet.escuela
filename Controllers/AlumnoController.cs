@@ -15,9 +15,19 @@ namespace net.practices.aspnetcore.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string id)
         {
-            return View(_context.Alumnos.FirstOrDefault());
+            if (!string.IsNullOrEmpty(id))
+            {
+                var alumnoResult = from alumno in _context.Alumnos
+                                   where alumno.Id == id
+                                   select alumno;
+                return View(alumnoResult.SingleOrDefault());
+            }
+            else
+            {
+                return View("MultiAlumno",_context.Alumnos.ToList());
+            }
         }
 
         public IActionResult MultiAlumno()
