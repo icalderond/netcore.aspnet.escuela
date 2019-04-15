@@ -53,7 +53,42 @@ namespace net.practices.aspnetcore.Controllers
                 _context.Cursos.Add(curso);
                 _context.SaveChanges();
 
-                return View("Index",curso);
+                return View("Index", curso);
+            }
+            else
+            {
+                return View(curso);
+            }
+        }
+
+        public IActionResult Edit(string id)
+        {
+            var cursoResult = from curso in _context.Cursos
+                              where curso.Id == id
+                              select curso;
+            return View(cursoResult.SingleOrDefault());
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Curso curso)
+        {
+            if (ModelState.IsValid)
+            {
+                var escuela = _context.Escuelas.FirstOrDefault();
+
+                curso.EscuelaId = escuela.Id;
+
+                var cursoToEdit = _context.Cursos
+                .FirstOrDefault(x => x.Id == curso.Id);
+
+                cursoToEdit.Jornada = curso.Jornada;
+                cursoToEdit.Nombre = curso.Nombre;
+                cursoToEdit.Dirección = curso.Dirección;
+
+                _context.Cursos.Update(cursoToEdit);
+                _context.SaveChanges();
+
+                return View("Index", curso);
             }
             else
             {
