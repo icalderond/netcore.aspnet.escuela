@@ -20,19 +20,38 @@ namespace net.practices.aspnetcore.Controllers
             if (!string.IsNullOrEmpty(id))
             {
                 var cursoResult = from curso in _context.Cursos
-                                   where curso.Id == id
-                                   select curso;
+                                  where curso.Id == id
+                                  select curso;
                 return View(cursoResult.SingleOrDefault());
             }
             else
             {
-                return View("MultiCurso",_context.Cursos.ToList());
+                return View("MultiCurso", _context.Cursos.ToList());
             }
         }
 
         public IActionResult MultiCurso()
         {
             return View(_context.Cursos.ToList());
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Curso curso)
+        {
+            var escuela=_context.Escuelas.FirstOrDefault();
+
+            curso.EscuelaId=escuela.Id;
+
+            _context.Cursos.Add(curso);
+            _context.SaveChanges();
+
+            return View();
         }
     }
 }
