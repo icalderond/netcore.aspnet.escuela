@@ -16,6 +16,8 @@ namespace net.practices.aspnetcore
 {
     public class Startup
     {
+        private string connString;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -37,7 +39,12 @@ namespace net.practices.aspnetcore
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // This is for dependency injection
-            services.AddDbContext<EscuelaContext>(options => options.UseInMemoryDatabase(databaseName: "testDatabase"));
+            // services.AddDbContext<EscuelaContext>(options => options.UseInMemoryDatabase(databaseName: "testDatabase"));
+
+            connString = ConfigurationExtensions.GetConnectionString(this.Configuration, "DefaultConnection");
+            services.AddDbContext<EscuelaContext>(
+                options => options.UseSqlServer(connString)
+                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
