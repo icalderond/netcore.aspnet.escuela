@@ -1,0 +1,1 @@
+dotnet aspnet-codegenerator controller -name EscuelaController -m Escuela -dc EscuelaContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries -f
