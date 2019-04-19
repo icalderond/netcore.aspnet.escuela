@@ -34,7 +34,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="TipoEscuela" class="control-label"></label>
-                 @Html.DropDownList("Jornada",Html.GetEnumSelectList<TiposEscuela>(),"Seleciones tipo escuela",new {@class="form-control"})
+                @Html.DropDownListFor(m=>m.TipoEscuela,Html.GetEnumSelectList<TiposEscuela>(),"Selecione tipo escuela",new {@class="form-control"})
+                 <!-- @Html.DropDownList("Jornada",Html.GetEnumSelectList<TiposEscuela>(),"Selecione tipo escuela",new {@class="form-control"}) -->
                 <span asp-validation-for="TipoEscuela" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Id" />
