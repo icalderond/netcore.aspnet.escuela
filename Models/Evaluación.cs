@@ -16,7 +16,7 @@ namespace net.practices.aspnetcore.Models
 
         public override string ToString()
         {
-            return $"{Nota}, {Alumno.Nombre}, {Asignatura.Nombre}";
+            return $"{Nota}, {Alumno?.Nombre}, {Asignatura?.Nombre}";
         }
 
         public Curso Curso { get; set; }
