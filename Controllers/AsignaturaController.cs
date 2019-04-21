@@ -47,7 +47,7 @@ namespace net.practices.aspnetcore.Controllers
         // GET: Asignatura/Create
         public IActionResult Create()
         {
-            ViewData["CursoId"] = new SelectList(_context.Cursos, "Id", "Id");
+            ViewData["CursoId"] = new SelectList(_context.Cursos, "Id", "Nombre");
             return View();
         }
 
@@ -64,13 +64,20 @@ namespace net.practices.aspnetcore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CursoId"] = new SelectList(_context.Cursos, "Id", "Id", asignatura.CursoId);
+            ViewData["CursoId"] = new SelectList(_context.Cursos, "Id", "Nombre", asignatura.CursoId);
             return View(asignatura);
         }
 
         // GET: Asignatura/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
+            if (TempData.ContainsKey("ModelError"))
+            {
+
+                ModelState.AddModelError("", TempData["ModelError"].ToString());
+                TempData.Remove("ModelError");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -81,7 +88,7 @@ namespace net.practices.aspnetcore.Controllers
             {
                 return NotFound();
             }
-            ViewData["CursoId"] = new SelectList(_context.Cursos, "Id", "Id", asignatura.CursoId);
+            ViewData["CursoId"] = new SelectList(_context.Cursos, "Id", "Nombre", asignatura.CursoId);
             return View(asignatura);
         }
 
@@ -101,6 +108,14 @@ namespace net.practices.aspnetcore.Controllers
             {
                 try
                 {
+                    var checkIfExist =  await _context.Asignaturas.Where(x => x.Nombre == asignatura.Nombre && x.CursoId == asignatura.CursoId)
+                    .FirstOrDefaultAsync();
+                    if (checkIfExist != null)
+                    {
+                        TempData.Add("ModelError", $"Curso {checkIfExist.CursoId} already have a Asigatura with name {checkIfExist.Nombre}");
+                        return RedirectToAction(nameof(Edit), new { Id = id }); //View("Edit");
+                    }
+
                     _context.Update(asignatura);
                     await _context.SaveChangesAsync();
                 }
@@ -117,7 +132,7 @@ namespace net.practices.aspnetcore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CursoId"] = new SelectList(_context.Cursos, "Id", "Id", asignatura.CursoId);
+            ViewData["CursoId"] = new SelectList(_context.Cursos, "Id", "Nombre", asignatura.CursoId);
             return View(asignatura);
         }
 
