@@ -81,7 +81,7 @@ namespace net.practices.aspnetcore.Controllers
             {
                 return NotFound();
             }
-            ViewData["CursoId"] = new SelectList(_context.Cursos, "Id", "Id", alumno.CursoId);
+            ViewData["CursoId"] = new SelectList(_context.Cursos, "Id", "Nombre", alumno.CursoId);
             return View(alumno);
         }
 
